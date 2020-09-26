@@ -15,7 +15,7 @@ export const CTX = React.createContext();
 
 const initialState = {
   user: undefined,
-  rooms: { Room1: [], Room2: [] },
+  rooms: { Room1: [{ user: "Someone Else", message: "Sup" }], Room2: [] },
 };
 
 let socket;

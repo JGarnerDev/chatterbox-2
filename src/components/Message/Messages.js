@@ -7,7 +7,7 @@ export default function Messages({ messages }) {
     <div>
       {messages
         ? messages.map(({ user, message }, i) => {
-            return <Message user={user} message={message} key={i} />;
+            return <Message messageFrom={user} message={message} key={i} />;
           })
         : null}
     </div>
