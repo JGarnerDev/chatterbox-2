@@ -14,7 +14,7 @@ export const CTX = React.createContext();
 // We need an initial state for our reducer, values dependent on what we want on arrival to site
 
 const initialState = {
-  user: "Foo",
+  user: undefined,
   rooms: { Room1: [], Room2: [] },
 };
 

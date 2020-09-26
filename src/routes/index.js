@@ -11,7 +11,9 @@ import Chat from "../components/Chat/Chat";
 
 const Routes = () => {
   const { chat } = React.useContext(CTX);
+
   let user = chat.user;
+
   return (
     <Switch>
       {/* Open Routes  */}
