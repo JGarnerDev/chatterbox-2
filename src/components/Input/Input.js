@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-export default function Input({ sendMessage }) {
+export default function Input({ user, sendMessage, activeRoom }) {
   const [newMessage, setNewMessage] = useState("");
+
   return (
     <div>
       <input
@@ -11,7 +12,8 @@ export default function Input({ sendMessage }) {
       />
       <button
         onClick={() => {
-          sendMessage(newMessage);
+          sendMessage(user, newMessage, activeRoom);
+          setNewMessage("");
         }}
       >
         Fucking click me

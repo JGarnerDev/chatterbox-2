@@ -14,35 +14,41 @@ export const CTX = React.createContext();
 // We need an initial state for our reducer, values dependent on what we want on arrival to site
 
 const initialState = {
-  Chatroom1: [
-    { from: "User1", message: "Message goes right here" },
-    { from: "User1", message: "Message goes right here" },
-    { from: "User1", message: "Message goes right here" },
-  ],
-  Chatroom2: [
-    { from: "User2", message: "Other messages go here" },
-    { from: "User2", message: "Other messages go here" },
-    { from: "User2", message: "Other messages go here" },
-  ],
+  user: "Foo",
+  rooms: { Room1: [], Room2: [] },
 };
 
-// We declare socket outside to prevent it being recreated...
 let socket;
+let user;
 
-function sendMessage(message) {
-  socket.emit("message", message);
+// action creators
+
+function sendMessage(user, message, room) {
+  socket.emit("message", { user, message, room });
 }
 
 export default function Store({ children }) {
-  // ...if it hasn't been defined yet, do
-  if (!socket) {
-    socket = io(":5000");
+  const [chat, dispatch] = React.useReducer(rootReducer, initialState);
+
+  function newUser(name) {
+    dispatch({ type: "LOGIN", payload: name });
   }
-  // This reducer is the React Hooks implementation - There are other recommended ways of doing this, such as React-Redux
-  // What we're doing here is essentially mapStateToProps and mapDispatchToProps
-  const [chatRooms] = React.useReducer(rootReducer, initialState);
+
+  // if there isn't a socket yet...
+  if (!socket) {
+    // ...make it, listening on our server
+    socket = io(":3001");
+
+    // whenever our socket revieces a 'message' event, dispatch the data attached to the event to our reducer via action creator
+    socket.on("message", (message) => {
+      dispatch({ type: "NEW_MESSAGE", payload: message });
+    });
+  }
+
   // children is props.children, which will be App and all components within
   return (
-    <CTX.Provider value={{ chatRooms, sendMessage }}>{children}</CTX.Provider>
+    <CTX.Provider value={{ user, chat, newUser, sendMessage }}>
+      {children}
+    </CTX.Provider>
   );
 }

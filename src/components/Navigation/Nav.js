@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { CTX } from "../store";
+import { CTX } from "../../store";
 
 export default function Navbar() {
   // Reaching into store memory for our chatRooms

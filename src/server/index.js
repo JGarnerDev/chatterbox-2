@@ -1,13 +1,14 @@
-var express = require("express");
-
-var app = express();
-
-var server = app.listen(5000, () => {
-  console.log("Server up");
-});
-
-var io = require("socket.io").listen(server);
+var app = require("express")();
+var http = require("http").createServer(app);
+var io = require("socket.io")(http);
+const PORT = 3001;
 
 io.on("connection", (socket) => {
-  socket.on("message", (message) => {});
+  socket.on("message", (message) => {
+    io.emit("message", message);
+  });
+});
+
+http.listen(PORT, () => {
+  console.log(`Server is up on port ${PORT}`);
 });

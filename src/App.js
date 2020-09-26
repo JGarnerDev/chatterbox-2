@@ -2,13 +2,16 @@ import React from "react";
 
 import Store from "./store";
 
-import Chat from "./components/Chat";
+import { BrowserRouter as Router } from "react-router-dom";
+import Routes from "./routes";
 
 export default function App() {
   return (
     <div id="App">
       <Store>
-        <Chat />
+        <Router>
+          <Routes />
+        </Router>
       </Store>
     </div>
   );
