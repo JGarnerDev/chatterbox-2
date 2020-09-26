@@ -3,7 +3,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import { CTX } from "../store";
 
-import ProtectedRoute from "./protected.route";
+import UserRoute from "./user.route";
+import NonAuthRoute from "./nonAuth.route";
 
 import Login from "../components/Login/Login";
 import Chat from "../components/Chat/Chat";
@@ -14,10 +15,9 @@ const Routes = () => {
   return (
     <Switch>
       {/* Open Routes  */}
-      <Route path="/" exact component={Login} />
+      <NonAuthRoute path="/" exact component={Login} user={user} />
       {/* Private Routes */}
-      <ProtectedRoute path="/chat" exact component={Chat} user={user} />
-
+      <UserRoute path="/chat" exact component={Chat} user={user} />
       {/* reroutes any address that the above don't match with, and sends them to the home page */}
       <Route path="*" render={() => <Redirect to="/chat" />} />
     </Switch>
