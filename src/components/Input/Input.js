@@ -4,7 +4,7 @@ export default function Input({ user, sendMessage, activeRoom }) {
   const [newMessage, setNewMessage] = useState("");
 
   return (
-    <div>
+    <div id="Input">
       <input
         type="text"
         value={newMessage}

@@ -17,7 +17,7 @@ export default function Chat() {
   // We need a way to indicate and handle what current room the user is in, default value will be the first room established in the initialState of store (../store/index.js)
   const [activeRoom, setActiveRoom] = useState(roomNames[0]);
   return (
-    <div>
+    <div id="Chat">
       <Navbar activeRoom={activeRoom} />
       <RoomList rooms={roomNames} setActiveRoom={setActiveRoom} />
       <Messages messages={chat.rooms[activeRoom]} />

@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
   });
   // When they post a message, it is emitted
   socket.on("message", (message) => {
-    io.emit("message", mes(message));
+    io.emit("message", message);
   });
   socket.on("disconnect", () => {
     removeUser(socket.id);
