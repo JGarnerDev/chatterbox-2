@@ -1,5 +1,6 @@
 import React from "react";
 import io from "socket.io-client";
+import axios from "axios";
 
 import rootReducer from "./reducer";
 
@@ -32,6 +33,7 @@ export default function Store({ children }) {
 
   function newUser(name) {
     dispatch({ type: "LOGIN", payload: name });
+    socket.emit("join", { name });
   }
 
   // if there isn't a socket yet...

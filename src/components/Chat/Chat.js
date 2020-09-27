@@ -11,6 +11,7 @@ export default function Chat() {
   // Reaching into store memory for our chatRooms and the sendMessage action creator
   const { chat, sendMessage } = React.useContext(CTX);
   const user = chat.user;
+
   // Because chatRooms are objects, the chat room names will be the object keys
   const roomNames = Object.keys(chat.rooms);
   // We need a way to indicate and handle what current room the user is in, default value will be the first room established in the initialState of store (../store/index.js)
