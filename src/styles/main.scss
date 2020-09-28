@@ -255,9 +255,17 @@ body,
         outline: none !important;
       }
     }
-    &-sendbutton {
+    &-sendbutton,
+    &-sendbutton-spin {
+      -webkit-transform: rotate(-90deg);
+      transform: rotate(-90deg);
       margin: 0 10px 0 10px;
       background: $C4;
+      box-shadow: none;
+    }
+    &-sendbutton-spin {
+      -webkit-animation: spin90 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      animation: spin90 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
   }
 }

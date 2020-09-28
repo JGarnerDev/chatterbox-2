@@ -6,7 +6,6 @@ const UserRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        console.log(rest.user);
         return rest.user ? (
           <Component {...props} />
         ) : (

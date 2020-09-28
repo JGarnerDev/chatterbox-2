@@ -46,6 +46,14 @@ export default function Store({ children }) {
     socket.on("message", (message) => {
       dispatch({ type: "NEW_MESSAGE", payload: message });
     });
+
+    socket.on("disconnect", ({ name }) => {
+      const user = "ChatterBox";
+      const message = `User ${name} has left!`;
+      const room = "Main chat";
+      const leaveMessage = { user, message, room };
+      dispatch({ type: "NEW_MESSAGE", payload: leaveMessage });
+    });
   }
 
   // children is props.children, which will be App and all components within

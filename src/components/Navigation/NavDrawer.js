@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import NavList from "./NavList";
 
-import { Button, Drawer, ListItemIcon, Fab } from "@material-ui/core";
+import { Drawer } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
 
 const navListItems = ["Ass", "Butt"];
