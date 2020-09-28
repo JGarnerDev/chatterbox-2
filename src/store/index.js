@@ -34,6 +34,7 @@ export default function Store({ children }) {
   function newUser(name) {
     dispatch({ type: "LOGIN", payload: name });
     socket.emit("join", { name });
+    sendMessage("ChatterBox", `User ${name} has joined!`, "Main chat");
   }
 
   // if there isn't a socket yet...
