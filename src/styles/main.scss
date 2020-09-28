@@ -11,12 +11,14 @@
 }
 
 html,
-body {
+body,
+#root,
+#App {
   // Size
   height: 100vh;
   width: 100vw;
   //   Postition
-  z-index: -2;
+  z-index: 0;
   // Content alignment
   display: flex;
   justify-content: center;
@@ -31,6 +33,7 @@ body {
     rgba(255, 255, 255, 1) 0%,
     rgb(201, 246, 255) 100%
   );
+  font-family: "Lato", sans-serif;
 }
 
 // Particular Styling
@@ -78,6 +81,182 @@ body {
     opacity: 0.3;
     //   Animation
     animation: waves 20s linear infinite;
+  }
+}
+
+#Login {
+  // Mixins
+  @include view;
+  // Content alignment
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // Size
+  max-width: 400px;
+  height: 80vh;
+
+  #login-wrapper {
+    // Content alignment
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // Size
+    height: 40%;
+    min-height: 300px;
+    width: 100%;
+    #login-form {
+      margin-top: 10%;
+      // Content alignment
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      // Size
+      height: 60%;
+      #form-input {
+        max-width: max-content;
+      }
+      #form-button {
+        // background: $C4-light;
+        color: black;
+        outline: black;
+        background: $C2;
+      }
+    }
+    #login-feedback {
+      // Content alignment
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      // Size
+      height: 20%;
+      width: 80%;
+      #error {
+        background: rgb(255, 142, 142);
+        color: rgba(0, 0, 0, 0.719);
+        &-title {
+          font-weight: 600;
+        }
+        -webkit-animation: bounce-bottom 0.9s both;
+        animation: bounce-bottom 0.9s both;
+      }
+    }
+  }
+}
+
+#Chat {
+  @include view;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.8);
+
+  #Navbar {
+    display: flex;
+    justify-content: space-between;
+    min-height: 10%;
+    background: linear-gradient(to right, $C3, $C2);
+    box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
+    #button {
+      width: 30px;
+      height: auto;
+      padding: 2px;
+      border-radius: 5px;
+      box-shadow: 0 3px 6px -2px rgba(0, 0, 0, 0.4);
+      background: rgba(255, 255, 255, 0.7);
+    }
+    &-roomName {
+      text-align: center;
+    }
+  }
+  #Messages {
+    min-height: 75%;
+    overflow-y: scroll;
+    padding: 24px;
+    box-shadow: inset 0px -1px 4px 0px rgba(0, 0, 0, 0.2);
+    .Message {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      height: auto;
+      width: 100%;
+      padding: 15px 0px 15px 0px;
+      word-wrap: break-word;
+
+      p {
+        padding: 10px;
+        margin: 0px 15px 0px 0px;
+        border-radius: 6px;
+        word-break: break-all;
+        background-color: $C4-light;
+        box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.6);
+      }
+      h3 {
+        padding: 7px;
+        position: relative;
+        max-width: 120px;
+        min-width: 120px;
+
+        border: 3px solid $C4-light;
+        border-radius: 5px;
+        line-height: 19px;
+
+        background: white;
+        box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.6);
+
+        .Message-userIcon {
+          position: absolute;
+          top: 5px;
+          right: -15px;
+          color: $C3;
+          border-radius: 20px;
+          background: white;
+        }
+      }
+
+      &.currentUser {
+        flex-direction: row-reverse;
+        p {
+          margin: 0px 0px 0px 15px;
+          background-color: $C4;
+        }
+        h3 {
+          text-align: left;
+          border: 3px solid $C4;
+          .Message-userIcon {
+            right: 108px;
+          }
+        }
+      }
+    }
+  }
+  #Input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 15%;
+    padding: 10px;
+
+    &-textfield {
+      flex-grow: 1;
+      min-height: 80%;
+      padding: 5px;
+      border-radius: 10px;
+      resize: none;
+      border: 1px solid rgba(0, 0, 0, 0.267);
+
+      font-family: "Times New Roman", Times, serif;
+      font-size: 1em;
+      word-break: break-all;
+      &:focus {
+        outline: none !important;
+      }
+    }
+    &-sendbutton {
+      margin: 0 10px 0 10px;
+      background: $C4;
+    }
   }
 }
 

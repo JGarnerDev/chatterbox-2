@@ -1,6 +1,5 @@
 import React from "react";
 import io from "socket.io-client";
-import axios from "axios";
 
 import rootReducer from "./reducer";
 
@@ -16,7 +15,7 @@ export const CTX = React.createContext();
 
 const initialState = {
   user: undefined,
-  rooms: { Room1: [{ user: "Someone Else", message: "Sup" }], Room2: [] },
+  rooms: { "Main chat": [], "Side chat": [] },
 };
 
 let socket;
@@ -25,6 +24,7 @@ let user;
 // action creators
 
 function sendMessage(user, message, room) {
+  if (!message) return;
   socket.emit("message", { user, message, room });
 }
 

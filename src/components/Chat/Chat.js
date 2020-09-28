@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 import { CTX } from "../../store";
 
+import { Paper } from "@material-ui/core";
+
 import Navbar from "../Navigation/Navbar";
-import RoomList from "../Navigation/RoomList";
 import Messages from "../Message/Messages";
 import Input from "../Input/Input";
 
@@ -17,11 +18,14 @@ export default function Chat() {
   // We need a way to indicate and handle what current room the user is in, default value will be the first room established in the initialState of store (../store/index.js)
   const [activeRoom, setActiveRoom] = useState(roomNames[0]);
   return (
-    <div id="Chat">
-      <Navbar activeRoom={activeRoom} />
-      <RoomList rooms={roomNames} setActiveRoom={setActiveRoom} />
+    <Paper id="Chat">
+      <Navbar
+        activeRoom={activeRoom}
+        rooms={roomNames}
+        setActiveRoom={setActiveRoom}
+      />
       <Messages messages={chat.rooms[activeRoom]} />
       <Input sendMessage={sendMessage} user={user} activeRoom={activeRoom} />
-    </div>
+    </Paper>
   );
 }

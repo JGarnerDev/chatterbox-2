@@ -1,40 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+
+import { Container, Paper, TextField, Grid, Button } from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab";
+import { AccountCircle } from "@material-ui/icons";
 
 import { CTX } from "../../store";
 
 export default function Login() {
   const { newUser } = React.useContext(CTX);
   const [userName, setUsername] = useState(undefined);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
-  async function isUnique(userName) {
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => setError(null), 3000);
+    }
+  }, [error]);
+
+  async function isValid(userName) {
+    if (!userName) {
+      setError({ type: "No Name", message: "You have to pick a name!" });
+      return;
+    }
     const currentUsers = await axios
       .get("http://localhost:3001/currentusers")
       .then((res) => {
         return res.data;
       });
-    return (await currentUsers.indexOf(userName)) === -1 ? true : false;
+
+    const isUnique = (await currentUsers.indexOf(userName)) === -1;
+    if (!isUnique) {
+      setError({
+        type: "Name isn't unique",
+        message: "Someone picked that name already!",
+      });
+      return;
+    }
+
+    newUser(userName);
   }
 
   return (
-    <div id="Login">
-      <div id="login-wrapper">
+    <Container id="Login">
+      <Paper id="login-wrapper">
         <div id="login-form">
-          <h1>Hey, pick a name!</h1>
-          <input type="text" onChange={(e) => setUsername(e.target.value)} />
-          <button
+          <TextField
+            label="Pick a name!"
+            variant="outlined"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+
+          <Button
             onClick={async () => {
-              (await isUnique(userName))
-                ? newUser(userName)
-                : setError("Sorry, someone already has that name!");
+              await isValid(userName);
             }}
+            variant="outlined"
+            size="large"
+            id="form-button"
           >
             Get in there!
-          </button>
+          </Button>
         </div>
-        <div>{error ? <div id="error">{error}</div> : null}</div>
-      </div>
-    </div>
+        <div id="login-feedback">
+          {error ? (
+            <Alert severity="error" id="error">
+              <AlertTitle id="error-title">{error.type}</AlertTitle>
+              {error.message}
+            </Alert>
+          ) : null}
+        </div>
+      </Paper>
+    </Container>
   );
 }

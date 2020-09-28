@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { CTX } from "../../store";
+import { Toolbar } from "@material-ui/core";
 
-export default function Navbar({ activeRoom }) {
+import NavDrawer from "./NavDrawer";
+
+export default function Navbar({ activeRoom, setActiveRoom }) {
   return (
-    <nav id="Navbar">
-      <h1>{activeRoom}</h1>
-    </nav>
+    <Toolbar id="Navbar">
+      <h2 id="Navbar-roomName">{activeRoom}</h2>
+      <NavDrawer setActiveRoom={setActiveRoom} />
+    </Toolbar>
   );
 }

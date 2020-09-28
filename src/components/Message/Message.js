@@ -2,18 +2,32 @@ import React from "react";
 
 import { CTX } from "../../store";
 
-export default function Message({ messageFrom, message }) {
-  const { user } = React.useContext(CTX);
+import { AccountCircle } from "@material-ui/icons";
 
-  return messageFrom === user ? (
-    <div className="Message">
-      <h1>{messageFrom}</h1>
-      <h1>{message}</h1>
+export default function Message({ messageFrom, message }) {
+  const { chat } = React.useContext(CTX);
+
+  const currentUser = messageFrom === chat.user;
+
+  if (messageFrom.length > 25) {
+    messageFrom = messageFrom.slice(0, 25) + "...";
+  }
+
+  return currentUser ? (
+    <div className="Message currentUser">
+      <p>{message}</p>
+      <h3>
+        <AccountCircle className="Message-userIcon" />
+        {messageFrom}
+      </h3>
     </div>
   ) : (
     <div className="Message">
-      <h1>{message}</h1>
-      <h1>{messageFrom}</h1>
+      <p>{message}</p>
+      <h3>
+        <AccountCircle className="Message-userIcon" />
+        {messageFrom}
+      </h3>
     </div>
   );
 }
