@@ -27,9 +27,4 @@ const getUser = (id) => {
   return user;
 };
 
-const getUsersInRoom = (room) => {
-  //  we need a function that returns a list of users based on room name match
-  return users.filter((user) => user.room === room);
-};
-
-module.exports = { addUser, removeUser, getUser, getUsersInRoom, users };
+module.exports = { addUser, removeUser, getUser, users };
