@@ -5,7 +5,8 @@ const cryptoRandomString = require("crypto-random-string");
 const moment = require("moment");
 
 describe("Utility functions", () => {
-  describe.skip("Sanity tests", () => {
+  describe("Sanity tests", () => {
+    //   Making sure that these utility functions exist
     it("has a module for the getUser function", () => {
       expect(messageTemplate).toBeDefined;
     });
@@ -23,7 +24,7 @@ describe("Utility functions", () => {
     });
   });
   describe("messageTemplate", () => {
-    it.skip("Throws an error if either the user or message arguments are missing", () => {
+    it("Throws an error if either the user or message arguments are missing", () => {
       const user = "George";
       const message = "Hello";
 
@@ -43,8 +44,11 @@ describe("Utility functions", () => {
         messageTemplate(user, undefined);
       }).toThrow();
     });
-    it.skip("Only accepts strings as user and message arguments", () => {
-      const randomInt = Math.round(Math.random() * 100);
+    it("Only accepts strings as user and message arguments", () => {
+      // Generate a random number between 1 and 100
+      const randomInt = Math.round(Math.random() * 99) + 1;
+
+      //   Use crypto-random-string module to make a ascii string of length(random number), assigning them to user and message
       const acceptableUser = cryptoRandomString({
         length: randomInt,
         type: "ascii-printable",
@@ -54,8 +58,10 @@ describe("Utility functions", () => {
         type: "ascii-printable",
       });
 
+      //   List bad arguments in an array
       const badArgs = ["", null, undefined, NaN, [], {}, jest.fn()];
 
+      //   Iterate through bad arguments, expecting each to make messageTemplate throw and error when used in either parameter
       badArgs.forEach((badArg) => {
         expect(() => {
           messageTemplate(badArg, acceptableMessage);
@@ -66,23 +72,26 @@ describe("Utility functions", () => {
       });
     });
 
-    it.skip("Returns a formatted message object in the form of {message, user, time} when user and message strings are provided", () => {
-      const randomInt = Math.round(Math.random() * 100);
+    it("Returns a formatted message object in the form of {message, user, time} when user and message strings are provided", () => {
+      // Generate a random number between 1 and 100
+      const randomInt = Math.round(Math.random() * 99) + 1;
 
-      const user = cryptoRandomString({
+      //   Use crypto-random-string module to make a ascii string of length(random number), assigning them to user and message
+      const acceptableUser = cryptoRandomString({
         length: randomInt,
         type: "ascii-printable",
       });
-      const message = cryptoRandomString({
+      const acceptableMessage = cryptoRandomString({
         length: randomInt,
         type: "ascii-printable",
       });
 
       const currentTime = moment().format("h:mm a");
-      const actual = messageTemplate(user, message);
+      const actual = messageTemplate(acceptableUser, acceptableMessage);
 
-      expect(actual.user).toBe(user);
-      expect(actual.message).toBe(message);
+      //   Expecting no mutations of values, and that the time is that of the function running
+      expect(actual.user).toBe(acceptableUser);
+      expect(actual.message).toBe(acceptableMessage);
       expect(actual.time).toBe(currentTime);
     });
   });
