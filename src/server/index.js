@@ -4,13 +4,7 @@ var io = require("socket.io")(http);
 var bodyParser = require("body-parser");
 const PORT = 3001;
 
-const {
-  getUser,
-  getUsersInRoom,
-  removeUser,
-  addUser,
-  users,
-} = require("./utils/users");
+const { getUser, removeUser, addUser, users } = require("./utils/users");
 
 io.on("connection", (socket) => {
   // When a user joins, we add them to the current list of users
@@ -31,7 +25,7 @@ io.on("connection", (socket) => {
 app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -44,6 +38,9 @@ app.get("/currentusers", (req, res, next) => {
   res.send(userNames);
 });
 
-http.listen(PORT, () => {
-  console.log(`Server is up on port ${PORT}`);
-});
+// http.listen(PORT, () => {
+//   console.log(`Server is up on port ${PORT}`);
+// });
+
+//  For testing
+module.exports = { app, http, io, bodyParser };

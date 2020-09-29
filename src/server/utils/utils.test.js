@@ -4,8 +4,8 @@ import { getUser, removeUser, addUser, users } from "./users";
 const cryptoRandomString = require("crypto-random-string");
 const moment = require("moment");
 
-describe("Utility functions", () => {
-  describe.skip("Sanity tests", () => {
+describe.skip("Utility functions", () => {
+  describe("Sanity tests", () => {
     //   Making sure that these utility functions exist
     it("has a module for the getUser function", () => {
       expect(messageTemplate).toBeDefined;
@@ -23,7 +23,7 @@ describe("Utility functions", () => {
       expect(users).toBeDefined;
     });
   });
-  describe.skip("messageTemplate", () => {
+  describe("messageTemplate", () => {
     // Desired outcome:
     // messageTemplate(), given arguments 'message' (string) and 'user' (string), returns an object {message, user, time: [CURRENT TIME]}
 
@@ -114,7 +114,7 @@ describe("Utility functions", () => {
       users.push({ id: acceptableString(), user: acceptableString() });
     }
 
-    describe.skip("getUser", () => {
+    describe("getUser", () => {
       // Desired outcome:
       // getUser(id) should return a user from the users array that has the id of the one given as an argument
 
@@ -147,7 +147,7 @@ describe("Utility functions", () => {
         expect(actualUser).toEqual(expectedUser);
       });
     });
-    describe.skip("removeUser", () => {
+    describe("removeUser", () => {
       // Desired outcome:
       // removeUser(id) should return a user from the users array that has the id of the one given as an argument, as well as remove this user from the users array
 

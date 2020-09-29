@@ -43,11 +43,12 @@ export default function Login() {
   return (
     <Container id="Login">
       <Paper id="login-wrapper">
-        <div id="login-form">
+        <div id="login-form" data-test="login-form">
           <TextField
             label="Pick a name!"
             variant="outlined"
             onChange={(e) => setUsername(e.target.value)}
+            data-test="name-input"
           />
 
           <Button
@@ -57,13 +58,14 @@ export default function Login() {
             variant="outlined"
             size="large"
             id="form-button"
+            data-test="login-button"
           >
             Get in there!
           </Button>
         </div>
-        <div id="login-feedback">
+        <div id="login-feedback" data-test="login-feedback">
           {error ? (
-            <Alert severity="error" id="error">
+            <Alert severity="error" id="error" data-test="feedback-error">
               <AlertTitle id="error-title">{error.type}</AlertTitle>
               {error.message}
             </Alert>
