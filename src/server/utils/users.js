@@ -2,6 +2,9 @@
 const users = [];
 
 const addUser = ({ id, name }) => {
+  if (!id || typeof id !== "string" || !name || typeof name !== "string") {
+    throw Error("removeUser() requires an id (string) argument");
+  }
   //   we make a new user
   const user = { id, name };
   //   ...add it to our array held in the global scope
@@ -13,7 +16,7 @@ const addUser = ({ id, name }) => {
 
 const removeUser = (id) => {
   if (!id || typeof id !== "string") {
-    throw Error("removeUser() requires an id argument");
+    throw Error("removeUser() requires an id (string) argument");
   }
   // we look into the users array to find a match by id
   const index = users.findIndex((user) => {
@@ -27,7 +30,7 @@ const removeUser = (id) => {
 
 const getUser = (id) => {
   if (!id || typeof id !== "string") {
-    throw Error("getUser() requires an id argument");
+    throw Error("getUser() requires an id (string) argument");
   }
   const user = users.find((user) => user.id === id);
   return user;

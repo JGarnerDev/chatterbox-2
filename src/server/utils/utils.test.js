@@ -103,12 +103,7 @@ describe("Utility functions", () => {
     const randomInt = Math.round(Math.random() * 99) + 1;
 
     //   Use crypto-random-string module to make a ascii string of length(random number), assigning them to id and user
-    const acceptableId = () =>
-      cryptoRandomString({
-        length: randomInt,
-        type: "ascii-printable",
-      });
-    const acceptableUser = () =>
+    const acceptableString = () =>
       cryptoRandomString({
         length: randomInt,
         type: "ascii-printable",
@@ -116,7 +111,7 @@ describe("Utility functions", () => {
 
     //   Push three new user objects with random values into the users array
     for (let i = 0; i <= 3; i++) {
-      users.push({ id: acceptableId(), user: acceptableUser() });
+      users.push({ id: acceptableString(), user: acceptableString() });
     }
 
     describe.skip("getUser", () => {
@@ -174,7 +169,7 @@ describe("Utility functions", () => {
         });
       });
 
-      it("returns the user with the id given as an argument", () => {
+      it("returns the user with the id given as an argument, and the user is no longer contained by users array", () => {
         // Picking a random existing index of the users array
         const indexOfUser = ~~(Math.random() * users.length);
         // Retaining the object we know to be at that index
@@ -185,6 +180,56 @@ describe("Utility functions", () => {
         expect(actualUser).toEqual(expectedUser);
         // Expect the array to not contain the user
         expect(users).not.toContain(actualUser);
+      });
+    });
+    describe("addUser", () => {
+      // Desired outcome:
+      // addUser(user) should return a user the user information, as well as add this user to the users array
+
+      it("throws an error when no argument is passed", () => {
+        expect(() => {
+          addUser();
+        }).toThrow();
+      });
+
+      it("throws and error when arguments are not strings with >0 length", () => {
+        const acceptableId = acceptableString();
+        const acceptableName = acceptableString();
+        //   List bad arguments in an array
+        const badArgs = ["", 1, null, undefined, NaN, [], {}, jest.fn()];
+
+        //   Iterate through bad arguments, expecting each to make addUser throw and error when used in either parameter
+        badArgs.forEach((badArg) => {
+          expect(() => {
+            addUser(badArg);
+          }).toThrow();
+          expect(() => {
+            addUser(acceptableId, badArg);
+          }).toThrow();
+          expect(() => {
+            addUser(badArg, acceptableName);
+          }).toThrow();
+          expect(() => {
+            addUser(badArg, badArg);
+          }).toThrow();
+        });
+      });
+
+      it("given an id (string) and a name (string), returns the information and adds the user to the array", () => {
+        //   assign acceptable values
+        const acceptableId = acceptableString();
+        const acceptableName = acceptableString();
+        //   assign a new user object these values
+        const newUser = { id: acceptableId, name: acceptableName };
+        // retain length of users array
+        const oldLength = users.length;
+        //   call addUser with the valid user object
+        addUser(newUser);
+        // expect users array length to be increased by one
+        const newLength = users.length;
+        expect(newLength).toBe(oldLength + 1);
+        // expect this user to exist in users array and to be retrievable
+        expect(getUser(newUser.id)).toEqual(newUser);
       });
     });
   });
