@@ -28,7 +28,7 @@ function sendMessage(user, message, room) {
   socket.emit("message", { user, message, room });
 }
 
-export default function Store({ children }) {
+export default function Provider({ children }) {
   const [chat, dispatch] = React.useReducer(rootReducer, initialState);
 
   function newUser(name) {

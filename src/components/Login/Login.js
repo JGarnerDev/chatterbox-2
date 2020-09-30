@@ -8,7 +8,7 @@ import { CTX } from "../../store";
 
 export default function Login() {
   const { newUser } = React.useContext(CTX);
-  const [userName, setUsername] = useState(undefined);
+  const [userName, setUsername] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -41,14 +41,14 @@ export default function Login() {
   }
 
   return (
-    <Container id="Login" data-test="login-component">
-      <Paper id="login-wrapper" data-test="login-wrapper">
-        <div id="login-form" data-test="login-form">
+    <Container id="Login" data-testid="login-component">
+      <Paper id="login-wrapper" data-testid="login-wrapper">
+        <div id="login-form" data-testid="login-form">
           <TextField
             label="Pick a name!"
             variant="outlined"
             onChange={(e) => setUsername(e.target.value)}
-            data-test="name-input"
+            data-testid="name-input"
           />
 
           <Button
@@ -58,14 +58,14 @@ export default function Login() {
             variant="outlined"
             size="large"
             id="form-button"
-            data-test="login-button"
+            data-testid="login-button"
           >
             Get in there!
           </Button>
         </div>
-        <div id="login-feedback" data-test="login-feedback">
+        <div id="login-feedback" data-testid="login-feedback">
           {error ? (
-            <Alert severity="error" id="error" data-test="feedback-error">
+            <Alert severity="error" id="error" data-testid="feedback-error">
               <AlertTitle id="error-title">{error.type}</AlertTitle>
               {error.message}
             </Alert>

@@ -1,11 +1,11 @@
 import React from "react";
-import { Store } from "./store";
+import Provider from "./store";
 
 export const findByTestAttr = (component, attr) => {
-  const wrapper = component.find(`[data-test='${attr}']`);
+  const wrapper = component.find(`[data-testid='${attr}']`);
   return wrapper;
 };
 
-export const setupWithContext = (component) => {
-  return mount(<Store children={component} />);
+export const setupWithContext = (component, value) => {
+  return mount(<Provider value={value}>{component}</Provider>);
 };
