@@ -41,8 +41,8 @@ export default function Login() {
   }
 
   return (
-    <Container id="Login">
-      <Paper id="login-wrapper">
+    <Container id="Login" data-test="login-component">
+      <Paper id="login-wrapper" data-test="login-wrapper">
         <div id="login-form" data-test="login-form">
           <TextField
             label="Pick a name!"
