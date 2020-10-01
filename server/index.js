@@ -7,6 +7,8 @@ const path = require("path");
 
 const { getUser, removeUser, addUser, users } = require("./utils/users");
 
+app.use(express.static("client/build"));
+
 io.on("connection", (socket) => {
   // When a user joins, we add them to the current list of users
   socket.on("join", ({ name }) => {
@@ -40,7 +42,6 @@ app.get("/currentusers", (req, res, next) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
   });
