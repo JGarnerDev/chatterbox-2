@@ -3,11 +3,9 @@ var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 var bodyParser = require("body-parser");
-const path = require("path");
+const cors = require("cors");
 
 const { getUser, removeUser, addUser, users } = require("./utils/users");
-
-app.use(express.static("client/build"));
 
 io.on("connection", (socket) => {
   // When a user joins, we add them to the current list of users
@@ -26,6 +24,7 @@ io.on("connection", (socket) => {
 });
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -41,11 +40,6 @@ app.get("/currentusers", (req, res, next) => {
   res.send(userNames);
 });
 
-if (process.env.NODE_ENV === "production") {
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
-  });
-}
 http.listen(process.env.PORT || 3001, () => {
   console.log(`Server is up `);
 });

@@ -4,9 +4,11 @@ import axios from "axios";
 import { Container, Paper, TextField, Button } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
+import logo from "../../assets/ChatterBox-logo.png";
+
 import { CTX } from "../../store";
 
-const baseUrl = process.env.baseURL || "http://localhost:3001";
+const baseUrl = "https://jg-chatterbox-server.herokuapp.com";
 
 export default function Login() {
   const { newUser } = React.useContext(CTX);
@@ -45,6 +47,7 @@ export default function Login() {
 
   return (
     <Container id="Login" data-testid="login-component">
+      <img src={logo} alt="" id="logo" />
       <Paper id="login-wrapper" data-testid="login-wrapper">
         <div id="login-form" data-testid="login-form">
           <TextField
