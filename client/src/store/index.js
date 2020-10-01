@@ -40,7 +40,7 @@ export default function Provider({ children }) {
   // if there isn't a socket yet...
   if (!socket) {
     // ...make it, listening on our server
-    socket = io(":3001");
+    socket = io(process.env.PORT || ":3001");
 
     // whenever our socket revieces a 'message' event, dispatch the data attached to the event to our reducer via action creator
     socket.on("message", (message) => {

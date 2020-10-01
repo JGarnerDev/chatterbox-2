@@ -1,12 +1,11 @@
-var app = require("express")();
+var express = require("express");
+var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 var bodyParser = require("body-parser");
 const path = require("path");
 
 const { getUser, removeUser, addUser, users } = require("./utils/users");
-
-app.use(express.static("client/build"));
 
 io.on("connection", (socket) => {
   // When a user joins, we add them to the current list of users
@@ -46,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-http.listen(process.env.PORT || 5000, () => {
+http.listen(process.env.PORT || 3001, () => {
   console.log(`Server is up `);
 });
 
