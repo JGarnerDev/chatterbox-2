@@ -6,6 +6,8 @@ const path = require("path");
 
 const { getUser, removeUser, addUser, users } = require("./utils/users");
 
+app.use(express.static("client/build"));
+
 io.on("connection", (socket) => {
   // When a user joins, we add them to the current list of users
   socket.on("join", ({ name }) => {
@@ -25,7 +27,7 @@ io.on("connection", (socket) => {
 app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -39,7 +41,7 @@ app.get("/currentusers", (req, res, next) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("../client/build"));
+  app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });

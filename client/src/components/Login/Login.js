@@ -6,6 +6,8 @@ import { Alert, AlertTitle } from "@material-ui/lab";
 
 import { CTX } from "../../store";
 
+const baseUrl = process.env.baseURL || "http://localhost:3001";
+
 export default function Login() {
   const { newUser } = React.useContext(CTX);
   const [userName, setUsername] = useState(null);
@@ -23,7 +25,8 @@ export default function Login() {
       return;
     }
     const currentUsers = await axios
-      .get("http://localhost:3001/currentusers")
+
+      .get(`${baseUrl}/currentusers`)
       .then((res) => {
         return res.data;
       });
