@@ -2,7 +2,9 @@ var app = require("express")();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
 var bodyParser = require("body-parser");
-const PORT = 3001;
+const path = require("path");
+
+const PORT = process.env.PORT || 3001;
 
 const { getUser, removeUser, addUser, users } = require("./utils/users");
 
@@ -38,9 +40,9 @@ app.get("/currentusers", (req, res, next) => {
   res.send(userNames);
 });
 
-// http.listen(PORT, () => {
-//   console.log(`Server is up on port ${PORT}`);
-// });
+http.listen(PORT, () => {
+  console.log(`Server is up on port ${PORT}`);
+});
 
 //  For testing
-module.exports = { app, http, io, bodyParser };
+// module.exports = { app, http, io, bodyParser };
