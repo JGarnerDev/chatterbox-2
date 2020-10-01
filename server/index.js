@@ -4,8 +4,6 @@ var io = require("socket.io")(http);
 var bodyParser = require("body-parser");
 const path = require("path");
 
-const PORT = process.env.PORT || 3001;
-
 const { getUser, removeUser, addUser, users } = require("./utils/users");
 
 io.on("connection", (socket) => {
@@ -46,8 +44,8 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-http.listen(PORT, () => {
-  console.log(`Server is up on port ${PORT}`);
+http.listen(process.env.PORT || 5000, () => {
+  console.log(`Server is up `);
 });
 
 //  For testing
